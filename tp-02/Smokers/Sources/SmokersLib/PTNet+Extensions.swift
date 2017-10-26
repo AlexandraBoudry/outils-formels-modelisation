@@ -4,10 +4,12 @@ public class MarkingGraph {
 
     public let marking   : PTMarking
     public var successors: [PTTransition: MarkingGraph]
+    public var state: [MarkingGraph]
 
     public init(marking: PTMarking, successors: [PTTransition: MarkingGraph] = [:]) {
         self.marking    = marking
         self.successors = successors
+        self.state = []
     }
 
 }
@@ -34,6 +36,7 @@ public extension PTNet {
                 if !seenNode.contains{$0 === successor}{
                 current.successors[tr] = successor
                   toVisit.append(successor)
+                  m0.state.append(successor)
                 }
               }
             }
