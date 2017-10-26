@@ -1,9 +1,9 @@
-public class MarkingGraph {
+public class MarkingGraph {  //La classe MarkingGraph correspond à un noeud du graphe
 
     public typealias Marking = [String: Int]
 
-    public let marking   : Marking
-    public var successors: [String: MarkingGraph]
+    public let marking   : Marking   // cela correspond au marquage du noeud
+    public var successors: [String: MarkingGraph] //les successeurs sont les arcs sortant du noeud
 
     public init(marking: Marking, successors: [String: MarkingGraph] = [:]) {
         self.marking    = marking
@@ -11,10 +11,56 @@ public class MarkingGraph {
     }
 
 }
+//Parcours en profondeur du graph
+
+func countNodes(MarkingGraph: MarkingGraph) -> Int {
+
+  var seen = [MarkingGraph]
+  var toVisit = [MarkingGraph]
+
+  while let current = toVisit.popLast(){
+    for (_, successor) in current.successors {
+      if !seen.contains(where: {$0 === successor}){
+        seen.append(successor)
+        toVisit.append(successor)
+        //ici tous les noeds ont été visités=> si je rajoute du code, je peux vérifier s'il existe un noeud particulier
+        // if marking.first(where: {$0.1>1}) !=nil { return true }
+      }
+    }
+  }
+
+  return seen.count
+}
+
+//Parcours en profondeur du graph récursivement
+
+func countNodesRec(MarkingGraph: MarkingGraph, seen: inout [MarkingGraph]) -> Int {
+
+  seen.append(MarkingGraph)
+
+  for (_, successor) in current.successors {
+      if !seen.contains(where: {$0 === successor}){
+        seen.append(successor)
+        _ = countNodesRec(MarkingGraph: successor, seen : &seen)
+    }
+  }
+  return seen.count
+}
+
+
+
+
 
 // Ex. 1: Mutual exclusion
 do {
     // Write your code here ...
+    let m00 = MarkingGraph(marking: ["s0": 1, "s1": 0, "s2": 1,"s3": 0,"s4": 1])
+    let m01 = MarkingGraph(marking: ["s0": 0, "s1": 1, "s2": 0,"s3": 0,"s4": 1])
+    let m02 = MarkingGraph(marking: ["s0": 1, "s1": 0, "s2": 0,"s3": 1,"s4": 0])
+
+    m00.successors = ["t1": m01, "t3": m02]
+    m01.successors = ["t0": m00]
+    m02.successors = ["t2": m00]
 }
 
 // Ex. 2: PetriNet 1
@@ -28,6 +74,10 @@ do {
     m2.successors = ["t1": m1]
 
     // Write your code here ...
+
+
+
+
 }
 
 // Ex. 2: PetriNet 2
