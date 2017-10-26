@@ -27,14 +27,15 @@ if let markingGraph = model.markingGraph(from: initialMarking) {
     // Write here the code necessary to answer questions of Exercise 4.
 
     //4.1
-    print("il y a \(markingGraph.state.count)  états pour ce réseau.")
+
+    print(model.count(mark: markingGraph))
 
     //4.2
 
+    print(model.twoSmokers(mark: markingGraph))
 
     //4.3
 
-
-
+    print(model.moreThanOneIng(mark: markingGraph))
 
 }
