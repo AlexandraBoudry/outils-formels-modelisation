@@ -13,7 +13,48 @@ extension PredicateNet {
         // You may use these methods to check if you've already visited a marking, or if the model
         // is unbounded.
 
-        return nil
+          // marquage initial
+          let initMark = PredicateMarkingNode<T>(marking: marking)
+          // liste de noeuds à visiter
+          var toSee: [PredicateMarkingNode<T>] = [initMark]
+
+          // Tant que la liste de noeuds est plus grande que 0, on récupère l'élément
+          while(toSee.count > 0){
+
+            let current = toSee.popLast()!
+
+            for trans in transitions {
+
+              current.successors[trans] = [:]
+              // binding pour la transition et le marquage courant
+              let binding: [PredicateTransition<T>.Binding] = trans.fireableBingings(from: current.marking)
+
+                for bind in binding {
+
+                  let newMark = PredicateMarkingNode(marking: trans.fire(from: current.marking, with:bind)!)
+                  // itération sur les éléments déjà existant pour éviter les boucles infinis pour les cas des graphes non bornés
+                  for i in initMark {
+                    // Si newMark est plus grand qu'un marquage existant
+                    if (PredicateNet.greater(newMark.marking, i.marking))
+                    {
+                      return nil
+                    }
+                  }
+                  // Si le marquage a déjà été visité, on l'ajoute aux sucesseurs
+                  if let seenMark = initMark.first(where:{PredicateNet.equals($0.marking, newMark.marking)})
+                  {
+                    current.successors[trans]![bind] = seenMark
+                  }
+                  // Sinon on l'ajoute à la liste des noeuds à visiter et aux sucesseurs
+                  else if(!toSee.contains(where: { PredicateNet.equals($0.marking, newMark.marking) }))
+                  {
+                    toSee.append(newMark)
+                    current.successors[trans]![bind] = newMark
+                  }
+                }
+            }
+        }
+        return initMark
     }
 
     // MARK: Internals

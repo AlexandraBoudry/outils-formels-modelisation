@@ -51,6 +51,7 @@ do {
     }
 }
 
+/*  Séance exercice du 17.11.2017
 do{
   //dom(Ingredients)= (p, t, m)
   enum Ingredients {
@@ -96,3 +97,4 @@ do{
       }
     }]))
 }
+*/
