@@ -98,3 +98,28 @@ do{
     }]))
 }
 */
+
+
+// 1- Combien y a-t-il de marquages possibles dans le modèle des philosophes non-bloquable à 5 philosophes?
+do {
+        let philosophers = lockFreePhilosophers(n: 5)
+        let philoMark = philosophers.markingGraph(from: philosophers.initialMarking!)
+        print("Il existe \(philoMark!.count) marquages possibles dans le modèle des philosophes non-bloquable à 5 philosophes.\n")
+}
+
+// 2- Combien y a-t-il de marquages possibles dans le modèle des philosophes bloquable à 5 philosophes?
+do {
+        let philosophers = lockablePhilosophers(n: 5)
+        let philoMark = philosophers.markingGraph(from: philosophers.initialMarking!)
+        print("Il existe \(philoMark!.count) marquages possibles dans le modèle des philosophes bloquable à 5 philosophes.\n")
+}
+
+// 3- Donnez un exemple d’état où le réseau est bloqué dans le modèle des philosophes bloquable à 5 philosophes?
+do {
+        let philosophers = lockablePhilosophers(n: 5)
+        let philoMark = philosophers.markingGraph(from: philosophers.initialMarking!)
+
+         for m in philoMark! {
+            print(m.marking)
+         }
+}
