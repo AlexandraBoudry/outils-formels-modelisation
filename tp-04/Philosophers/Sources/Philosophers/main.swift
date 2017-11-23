@@ -120,6 +120,14 @@ do {
         let philoMark = philosophers.markingGraph(from: philosophers.initialMarking!)
 
          for m in philoMark! {
-            print(m.marking)
+           var blocked = true
+           for (_, s) in m.successors {
+                        if(s.count != 0) { blocked = false}
+            }
+           if (blocked){
+             print("Le réseau est bloqué à l'état \(m.marking)");
+             break
+           }
+
          }
 }
