@@ -2,9 +2,35 @@ import ProofKitLib
 
 let a: Formula = "a"
 let b: Formula = "b"
+let c: Formula = "c"
 let f = a && b
 
 print(f)
+
+//exercice 2, Transformations, séance 9, 24.11.2017
+let f1 = !(a && (b || c))
+print("ex1:")
+print("formule: \(f1)")
+print("nnf    : \(f1.nnf)")
+print("cnf    : \((!a || !b) && (!a || !c))")
+print("dnf    : \(f1.nnf)")
+
+let f2 = (a => b) || !(a && c)
+print("ex2:")
+print("formule: \(f2)")
+print("nnf    : \(f2.nnf)")
+print("cnf    : \((!a || b || !c))")
+print("dnf    : \((!a || b || !c))")
+
+let f3 = (!a || b && c) && a
+print("ex3:")
+print("formule: \(f3)")
+print("nnf    : \(f3.nnf)")
+print("cnf    : \(b && c && a)")
+print("dnf    : \(b && c && a)")
+//fin ex2
+
+
 
 let booleanEvaluation = f.eval { (proposition) -> Bool in
     switch proposition {
