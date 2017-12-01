@@ -8,16 +8,16 @@ let d: Formula = "d"
 let f = a && b
 
 //session ex 01.12.2017
-ex1.1
-let j = (a || b) |- (a && c) || (b && c) || !C
+
+let j = (a || b) |- (a && c) || (b && c) || !c
 print("ex1.2")
 print(j.isProvable)
 
-let k = a => b && a => c && b => d && c => d |- a => d
+let k = (a => b) && (a => c) && (b => d) && (c => d) |- a => d
 print("ex1.3")
 print(k.isProvable)
 
-let l = a => b && b => a |- (a => b)&&(b => a)
+let l = (a => b) && (b => a) |- (a => b)&&(b => a)
 print("ex1.4")
 print(l.isProvable)
 
