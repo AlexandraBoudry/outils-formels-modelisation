@@ -21,6 +21,24 @@ let l = (a => b) && (b => a) |- (a => b)&&(b => a)
 print("ex1.4")
 print(l.isProvable)
 
+do{
+
+  let f1: Formula = "Il fait beau"
+  let f2: Formula = "On va à l'université" // == être
+  let f3: Formula = "Il risque de pleuvoir"
+  let f4: Formula = "On reste à la maison"
+  let f5: Formula = "On fait des exercices"
+  let f6: Formula = "on relit le cours"
+  let f7: Formula = "On est content"
+  let f8: Formula = "Le ciel est gris"
+
+  let j = ((f1 => f2) && (f3 => !f2) && (!f4 => f2) && (f4 => (f5 && f6)) && (f8 => f3) && (f2 => (f5 && f7)) && (f1 || f8)) |- f5
+
+  print("ex2")
+  print(j.isProvable)
+
+}
+
 
 print(f)
 
