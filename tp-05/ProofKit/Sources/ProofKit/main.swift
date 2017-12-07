@@ -7,6 +7,7 @@ let f = a && b
 
 print(f)
 
+
 //exercice 2, Transformations, séance 9, 24.11.2017
 let f1 = !(a && (b || c))
 print("ex1:")
@@ -29,6 +30,7 @@ print("nnf    : \(f3.nnf)")
 print("cnf    : \(b && c && a)")
 print("dnf    : \(b && c && a)")
 //fin ex2
+
 
 
 

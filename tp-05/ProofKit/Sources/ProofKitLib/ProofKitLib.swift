@@ -73,13 +73,79 @@ public enum Formula {
     /// The disjunctive normal form of the formula.
     public var dnf: Formula {
         // Write your code here ...
-        return self
+
+        // Do NNF
+         switch self.nnf {
+
+         case .proposition(_):
+               return self.nnf
+
+         case .negation(_):
+               return self.nnf
+
+         // in case of a disjunction, do DNF from a and b
+         case .disjunction(let a, let b):
+                return a.dnf || b.dnf
+
+        // in case of a conjunction
+         case .conjunction(let a, let b):
+             //left
+             switch a.dnf {
+             case .disjunction(let c, let d):
+                 return (b && d).dnf || (b && c).dnf
+             default: break
+             }
+             //right
+             switch b.dnf {
+             case .disjunction(let c, let d):
+                 return (c && a).dnf || (d && a).dnf
+             default: break
+             }
+
+             return self.cnf
+
+        //return NNF
+      case .implication(_,_):
+             return self.nnf
+           }
     }
 
     /// The conjunctive normal form of the formula.
     public var cnf: Formula {
         // Write your code here ...
-        return self
+
+        // Do NNF
+        switch self.nnf {
+
+         case .proposition(_):
+             return self.nnf
+
+         case .negation(_):
+             return self.nnf
+
+         // in case of a conjunction
+         case .conjunction(let a, let b):
+             return a.cnf && b.cnf
+         // in case of a disjunction
+         case .disjunction(let a, let b):
+             //left
+             switch a.cnf {
+             case .conjunction(let c, let d):
+                 return (b || c).cnf && (b || d).cnf
+             default: break
+             }
+             //right
+             switch b.cnf {
+             case .conjunction(let c, let d):
+                 return (a || c).cnf && (a||d).cnf
+             default: break
+             }
+
+             return self.dnf
+
+         case .implication(_,_):
+             return self.nnf
+           }
     }
 
     /// The propositions the formula is based on.
