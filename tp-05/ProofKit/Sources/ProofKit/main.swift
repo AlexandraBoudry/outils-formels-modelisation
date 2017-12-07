@@ -13,22 +13,22 @@ let f1 = !(a && (b || c))
 print("ex1:")
 print("formule: \(f1)")
 print("nnf    : \(f1.nnf)")
-print("cnf    : \((!a || !b) && (!a || !c))")
-print("dnf    : \(f1.nnf)")
+print("cnf    : \(f1.cnf)")   //  \((!a || !b) && (!a || !c))")
+print("dnf    : \(f1.dnf)")  //    \(f1.nnf)")
 
 let f2 = (a => b) || !(a && c)
 print("ex2:")
 print("formule: \(f2)")
 print("nnf    : \(f2.nnf)")
-print("cnf    : \((!a || b || !c))")
-print("dnf    : \((!a || b || !c))")
+print("cnf    : \(f2.cnf)")  //    \((!a || b || !c))")
+print("dnf    : \(f2.dnf)")  //     \((!a || b || !c))")
 
 let f3 = (!a || b && c) && a
 print("ex3:")
 print("formule: \(f3)")
 print("nnf    : \(f3.nnf)")
-print("cnf    : \(b && c && a)")
-print("dnf    : \(b && c && a)")
+print("cnf    : \(f3.cnf)")  //  \(b && c && a)")
+print("dnf    : \(f3.dnf)")  //  \(b && c && a)")
 //fin ex2
 
 
